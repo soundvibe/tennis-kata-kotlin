@@ -14,8 +14,8 @@ class TennisKtTest: BehaviorSpec() {
     init {
 
         Given("advantaged player") {
-            When("advantaged player wins") {
-                Then("score is correct") {
+            When("advantaged player scores") {
+                Then("score is Game") {
                     forAll(PlayerGenerator, { advantagedPlayer ->
                         assertThat {
                             val actual = score(Advantage(advantagedPlayer), advantagedPlayer)
@@ -26,8 +26,8 @@ class TennisKtTest: BehaviorSpec() {
                 }
             }
 
-            When("other player scoredBy") {
-                Then("score is correct") {
+            When("other player scores") {
+                Then("score is Deuce") {
                     forAll(PlayerGenerator, { advantagedPlayer ->
                         assertThat {
                             val actual = score(Advantage(advantagedPlayer), advantagedPlayer.other())
@@ -41,8 +41,8 @@ class TennisKtTest: BehaviorSpec() {
 
         Given("a deuce") {
             val deuce = Deuce
-            When("other player scoredBy") {
-                Then("score is correct") {
+            When("other player scores") {
+                Then("score is Advantage") {
                     forAll(PlayerGenerator, { otherPlayer ->
                         assertThat {
                             val actual = score(deuce, otherPlayer)
@@ -55,8 +55,8 @@ class TennisKtTest: BehaviorSpec() {
         }
 
         Given("player has 30") {
-            When("player scoredBy") {
-                Then("score is correct") {
+            When("player scores") {
+                Then("score is 40") {
                     forAll(PointsGenerator, PlayerGenerator, { points, scorer ->
                         assertThat {
                             val current = scorer.pointTo(Point.THIRTY, points)
@@ -70,8 +70,8 @@ class TennisKtTest: BehaviorSpec() {
         }
 
         Given("player has 40") {
-            When("player scoredBy") {
-                Then("score is correct") {
+            When("player scores") {
+                Then("score is Game") {
                     forAll(FortyGenerator, { forty ->
                         assertThat {
                             val actual = score(forty, forty.player)
@@ -82,8 +82,8 @@ class TennisKtTest: BehaviorSpec() {
                 }
             }
 
-            When("other player has 30 and scoredBy") {
-                Then("score is correct") {
+            When("other player has 30 and scores") {
+                Then("score is Deuce") {
                     forAll(FortyGenerator, { (player) ->
                         assertThat {
                             val f = Forty(player, Point.THIRTY)
@@ -95,8 +95,8 @@ class TennisKtTest: BehaviorSpec() {
                 }
             }
 
-            When("other player has 15 and scoredBy") {
-                Then("score is correct") {
+            When("other player has 15 and scores") {
+                Then("score is still 40") {
                     forAll(FortyGenerator, { (player) ->
                         assertThat {
                             val f = Forty(player, Point.FIFTEEN)
@@ -108,8 +108,8 @@ class TennisKtTest: BehaviorSpec() {
                 }
             }
 
-            When("other player has Love and scoredBy") {
-                Then("score is correct") {
+            When("other player has Love and scores") {
+                Then("score is still 40") {
                     forAll(FortyGenerator, { (player) ->
                         assertThat {
                             val f = Forty(player, Point.LOVE)
