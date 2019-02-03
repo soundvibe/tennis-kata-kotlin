@@ -22,8 +22,7 @@ fun score(current: Score, winner: Player) = when (current) {
     is Game -> Game(winner)
 }
 
-fun scoreSeq(vararg winners: Player) = winners.foldRight(newGame(),
-        { player, score -> score(score, player) })
+fun scoreSeq(vararg winners: Player) = winners.foldRight(newGame()) { player, score -> score(score, player) }
 
 fun scoreWhenPoints(points: Points, scoredPlayer: Player): Score {
     val p1Scored = scoredPlayer == Player.PLAYER_ONE
